@@ -45,3 +45,7 @@ The scripts were tested on a **MacBook Air (Apple M1, 8GB RAM)** and is expected
 
 - `RunAverageIKKTrajectory.m`: ~6.4 seconds  
 - `RunSingleCellTrajectories.m`: ~48.9 seconds
+
+## Citation 
+Please cite the updated version of: 
+"Time-varying stimuli that prolong IKK activation promote nuclear remodeling and mechanistic switching of NF-κB dynamics", Nature Communications, In Press 
