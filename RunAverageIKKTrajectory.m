@@ -16,6 +16,7 @@ addpath("Functions/")
 %   2 = D2FC Optimized 
 %   3 = D2FC (Orginal Parameters) 
 %   4 = Custom (Default D2FCSquared) 
+%   5 = IkBepsilon (Supplmentary Model) 
 %   6 = IkBbeta (Supplmentary Model)
 modelType = 1;  
 
