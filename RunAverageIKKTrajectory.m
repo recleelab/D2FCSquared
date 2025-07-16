@@ -16,6 +16,7 @@ addpath("Functions/")
 %   2 = D2FC Optimized 
 %   3 = D2FC (Orginal Parameters) 
 %   4 = Custom (Default D2FCSquared) 
+%   6 = IkBbeta (Supplmentary Model)
 modelType = 1;  
 
 
@@ -26,7 +27,18 @@ modelType = 1;
 %==========================================================================
 fittedIKKProfiles = readtable("Data/MeanIKKTrajectories.csv");
 scenarios = fittedIKKProfiles.Scenarios; 
-parameters = readtable("ModelParameters.xlsx");
+
+if modelType < 5
+    parameters = readtable("ModelParameters.xlsx","Sheet","MainTextModels");
+    model = D2FCSquared(); 
+elseif modelType == 5 
+    parameters = readtable("ModelParameters.xlsx",'Sheet', 'SupplmentaryModel_IkBe');
+    model = D2FC_EpsilonAddition();
+elseif modelType == 6
+    parameters = readtable("ModelParameters.xlsx",'Sheet', 'SupplmentaryModel_IkBb');
+    model = D2FC_BetaAddition();
+end 
+
 
 switch modelType
     case 1
@@ -45,12 +57,20 @@ switch modelType
         disp("Custom Model Applied")
         displayTitle = "Customized Model";
         parameterSet = parameters.Custom;
+    case 5 
+        disp("Supplmentary Model IkBepsilon")
+        displayTitle="IkBepsilon Supplmentary Model";
+        parameterSet = parameters.BestParamSet;
+    case 6
+        disp("Supplmentary Model IkBbeta")
+        displayTitle="IkBbeta Supplmentary Model";
+        parameterSet = parameters.BestParamSet;
     otherwise
         error("Invalid model type. Please choose a value between 1 and 4.");
 end
 
 
-model = D2FCSquared(); 
+
 model = UpdateParameters(model,parameterSet,16);
 intialCondition = [model.Species.Value];
 
